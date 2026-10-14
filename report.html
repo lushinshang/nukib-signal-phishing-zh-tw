@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NÚKIB Signal 釣魚事件：延伸研究與事實查核</title>
+<style>
+:root{--bg:#fff;--fg:#1d2330;--muted:#5b6475;--accent:#0b5cad;--box:#eef1f6;--line:#d5dae3;--warn:#fff6e0;}
+@media (prefers-color-scheme:dark){:root{--bg:#14171d;--fg:#e4e7ee;--muted:#9aa3b5;--accent:#6db3ff;--box:#1e232d;--line:#333a48;--warn:#2a2415;}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.8 -apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:1.7rem;line-height:1.4;margin:.4em 0 .6em}
+h2{font-size:1.25rem;margin:2em 0 .6em;padding-bottom:.25em;border-bottom:2px solid var(--accent)}
+h3{font-size:1.08rem;margin:1.6em 0 .4em}
+a{color:var(--accent);word-break:break-all}
+.meta{color:var(--muted);font-size:.92rem}
+.note,.trans{background:var(--warn);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-size:.92rem}
+.box{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:4px 20px 12px;margin:1.5em 0}
+.box h2{border:0;color:var(--accent)}
+figure{margin:1.2em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px}
+.row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:flex-start}
+.row img{max-width:260px}
+figcaption{font-size:.9rem;color:var(--muted);margin-top:.4em}
+details{margin:.4em 0 1em;font-size:.9rem}
+summary{cursor:pointer;color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:.8em 0;font-size:.93rem}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:var(--box)}
+.path{font-style:italic;font-weight:600}
+sup a{text-decoration:none;word-break:normal}
+ol.fn{font-size:.88rem;color:var(--muted);padding-left:1.4em}
+ol.fn li{margin-bottom:.8em}
+code,.tlp{font-family:ui-monospace,Menlo,monospace}
+
+blockquote{margin:1em 0;padding:.4em 1em;border-left:4px solid var(--accent);background:var(--box);color:var(--muted);font-size:.93rem}
+pre,code{font-family:ui-monospace,Menlo,monospace}
+.nav{font-size:.92rem;margin-bottom:1em}
+table{display:block;overflow-x:auto}
+</style>
+</head>
+<body>
+<main>
+<p class="nav"><a href="./">← 回到 NÚKIB 報告繁中譯本</a>｜<a href="https://github.com/lushinshang/nukib-signal-phishing-zh-tw/blob/main/FINAL_REPORT.md">GitHub 原始 Markdown</a></p>
+<h1 id="núkib-signal-釣魚事件延伸研究與事實查核整合報告">NÚKIB Signal
+釣魚事件：延伸研究與事實查核整合報告</h1>
+<blockquote>
+<p>研究日期：2026-10-14。8 個研究 agent 蒐集資料，9 個 fresh agent
+獨立查核（編號
+<code>verify_00</code>～<code>verify_08</code>，各小節標題括號內為對應的查核編號；原始研究與查核檔未公開）。
+本報告只收<strong>通過查核</strong>的項目；標註「二手」的未取得一手原文；第
+5 節列出未通過或無法驗證的說法。
+限制：support.signal.org、BleepingComputer、NL Times 等多個來源回
+403，web.archive.org 在本環境被禁用，WebFetch
+回傳為小模型摘要；「查不到」只代表搜尋無結果，不代表不存在。</p>
+</blockquote>
+<h2 id="1-núkib-報告的兩個版本已確認">1. NÚKIB
+報告的兩個版本（已確認）</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>捷克語原版</th>
+<th>英文版（本專案譯本的底本）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文號</td>
+<td>Č.j. 21670/2026-NÚKIB-E/630</td>
+<td>Ref. No. 24019/2026-NÚKIB-E/630</td>
+</tr>
+<tr>
+<td>內文日期</td>
+<td>11 Aug 2026</td>
+<td>30 Sep 2026</td>
+</tr>
+<tr>
+<td>新聞頁</td>
+<td>id 2456，2026-09-04</td>
+<td>id 2465，2026-10-13</td>
+</tr>
+<tr>
+<td>備註</td>
+<td>PDF 建立日 2026-09-03</td>
+<td>與本機 PDF SHA-256 相同（8f18ef3b…082392）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>兩版內文是否一致<strong>未比對</strong>；英文版為何另編文號、日期較晚，官方未說明。</li>
+<li>已知的兩版差異：捷克語版有「Portál NÚKIB／<a
+href="mailto:cert@nukib.gov.cz">cert@nukib.gov.cz</a>
+通報管道」，英文版只寫「聯絡組織內資安主管」（08 查核）。</li>
+<li>報告本身沒有
+IOC、沒有案例數量、沒有捷克境內事件；歸因為機率評估（likely
+55–70%、highly likely 75–85%），未列證據。</li>
+<li>與 2022 版（2022-02-28）比較：2022 版已含 Registration Lock、檢查
+Linked Devices、每日重啟（對所有人）；2026
+版改為每日重啟僅限高曝險者並註明不能防止入侵，新增俄羅斯關聯威脅描述與機率歸因。</li>
+</ul>
+<h2 id="2-時間線查核後">2. 時間線（查核後）</h2>
+<ul>
+<li>2023-11-15：烏克蘭空軍公開警告</li>
+<li>2024：CERT-UA UAC-0184（01-08，經
+Signal）／UAC-0149（04-18）／UAC-0200（06-04）；RUSI（07-22）</li>
+<li>2025-01-31：Signal Android／iOS 加固 commit</li>
+<li>2025-02-20：GTIG「Signals of Trouble」</li>
+<li>2025-12-04：Volexity「Dangerous Invitations」</li>
+<li>2026-02-06：德國 BfV／BSI 警告</li>
+<li>2026-03-09：荷蘭 AIVD／MIVD</li>
+<li>2026-03-20：FBI／CISA PSA 與法國 ANSSI C4</li>
+<li>2026-03-31：英國 NCSC</li>
+<li>2026-04-27：Signal 在 X 聲明</li>
+<li>2026-05-13：波蘭簽署 Signal 使用規範</li>
+<li>2026-06-26：FBI PSA 新增 Backup Recovery Key</li>
+<li>2026-06-30：AIVD 再度表態</li>
+<li>2026-08-11：NÚKIB 捷克語版</li>
+<li>2026-08-21：GTIG「Going with the Flow(s)」（WhatsApp）</li>
+<li>2026-09-30：NÚKIB 英文版</li>
+</ul>
+<h2 id="3-通過查核的要點">3. 通過查核的要點</h2>
+<h3 id="31-一手技術報告與-iocverify_0134-項確認-29不符-0">3.1
+一手技術報告與 IOC（verify_01：34 項，確認 29、不符 0）</h3>
+<ul>
+<li>GTIG「Signals of
+Trouble」（2025-02-20）、Volexity（2025-12-04）、GTIG 2026-08-21 的
+IOC（域名、IP、MD5／SHA-256、OAuth
+參數）已用腳本<strong>逐字比對原文，全部相符</strong>。IOC
+清單本身未收錄於本報告，請至各原廠報告取得。</li>
+<li>UNC5792 竄改 signal.group 邀請頁，把
+<code>sgnl://signal.group/</code> 換成
+<code>sgnl://linkdevice?uuid=</code>；UNC4221 仿 Kropyva 釣魚頁。</li>
+<li>UNC5976、UNC6293 只出自 GTIG 2026-08-21 報告，且該報告通篇講
+WhatsApp、OAuth，<strong>沒有 Signal</strong>，不可算進本次 Signal
+事件。</li>
+<li>FBI PSA 2026-06-26（I-062626-PSA）：新增假冒 Signal 支援騙取 Backup
+Recovery Key，寫明「publicly tracked as UNC5792 and UNC4221」，並提到
+FSB 軍官（含 FSB Border Guards）與 Russian military
+services；<strong>沒有</strong> GRU、SVR 字樣，也沒有逐一對應各 UNC
+到機關。</li>
+</ul>
+<h3 id="32-各國政府警示verify_02約-40-項">3.2
+各國政府警示（verify_02：約 40 項）</h3>
+<ul>
+<li>確認：BfV/BSI 2026-02-06（措辭 wahrscheinlich staatlich
+gesteuert）、ANSSI C4 2026-03-20（採信荷蘭 3/9 評估，建議公部門用
+Tchap，限「非敏感職務交流」）、FBI/CISA 3/20 與 6/26、NCSC 3/31（7/14
+更新）、AIVD 3/9 與 6/30（6/30 寫明支持己方研究）。</li>
+<li>加拿大 CCCS 有 AV25-099（2025-02-21，Signal 與俄羅斯相關），2026
+年未見新警示。</li>
+<li>立陶宛、拉脫維亞、芬蘭、瑞典、挪威、澳洲、台灣官方警示：搜尋無結果（不等於不存在）。</li>
+</ul>
+<h3 id="33-signal-官方回應verify_0528-項確認-12不符-8">3.3 Signal
+官方回應（verify_05：28 項，確認 12、不符 8）</h3>
+<ul>
+<li>官方聲明是 <strong>2026-04-27 的 X
+貼文</strong>（內容：未被入侵、Support 不索取驗證碼或 PIN、建議開
+Registration Lock、將推出措施）；signal.org 部落格 2026 年只有 5
+篇，沒有此聲明。</li>
+<li>2026-05-28 TechCrunch 引 Whittaker：「We're working on mitigations
+here, and monitoring.」</li>
+<li>已上線：「Name not verified」標籤、訊息請求二次確認。</li>
+<li>2025-01-31 兩個加固 commit（Android 首個含
+tag：v7.32.2；iOS：7.46.0.615，2025-02-12）：改連結對話框文案、外部
+<code>sgnl://</code> 連結不能直接啟動裝置連結。</li>
+<li>Android v8.11～v8.31.2、iOS 8.9～8.32 release notes 與近期 commit
+查無「連結後通知、連結延遲、QR 警告」（找不到證據，非證實不存在）。</li>
+</ul>
+<h3 id="34-烏克蘭與軍事面向verify_04約-45-項">3.4
+烏克蘭與軍事面向（verify_04：約 45 項）</h3>
+<ul>
+<li>公開前例（皆確認）：2023-11-15 空軍警告、2024-01-08 UAC-0184（經
+<strong>Signal</strong>，LNK 壓縮檔、REMCOS／REVERSESSH）、2024-04-18
+UAC-0149、2024-06-04 UAC-0200、2024-07-22 RUSI（繳獲手機）、2025-02-20
+GTIG。</li>
+<li>2024-09-19 國家網路安全協調中心決定、09-20 公布公務裝置禁用
+Telegram。</li>
+<li>UAC-0185＝UNC4221、UAC-0195 與 UNC5792「partially overlaps」，皆見
+GTIG 原文。</li>
+<li>NÚKIB
+的「首次」指什麼<strong>無法判斷</strong>：公開前例只能反駁「首次鎖定烏軍
+Signal 使用者」這種詮釋，不能斷定 NÚKIB 是否指特定手法。</li>
+</ul>
+<h3 id="35-歸因強度對照verify_0734-列">3.5 歸因強度對照（verify_07：34
+列）</h3>
+<table>
+<thead>
+<tr>
+<th>來源</th>
+<th>說法</th>
+<th>強度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>荷蘭 AIVD/MIVD</td>
+<td>直接指俄羅斯，未命名群組</td>
+<td>官方斷言，未公布證據</td>
+</tr>
+<tr>
+<td>FBI/CISA PSA</td>
+<td>多個 RIS cluster；UNC5792／UNC4221；FSB 軍官、軍事單位</td>
+<td>官方，一手已讀</td>
+</tr>
+<tr>
+<td>美國國務院 RFJ（6 月下旬，1,000 萬美元懸賞）</td>
+<td>二手轉述：UNC5792↔︎FSB Border Guards、UNC4221↔︎俄軍單位</td>
+<td>二手，RFJ 原頁未開</td>
+</tr>
+<tr>
+<td>BfV/BSI</td>
+<td>likely state-controlled actor；未正式歸因俄國</td>
+<td>保守</td>
+</tr>
+<tr>
+<td>NCSC</td>
+<td>頁面只寫「Russia-based actors」</td>
+<td>中</td>
+</tr>
+<tr>
+<td>CORRECTIV（2026-03-24）</td>
+<td>「no direct evidence of involvement of Russia's state
+apparatus」；同文也指向「源自俄羅斯的政治性活動」</td>
+<td>反方＋保留</td>
+</tr>
+<tr>
+<td>NÚKIB</td>
+<td>likely 55–70%（核心）；未列證據</td>
+<td>二手整合</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>APT44、Turla、UNC1151 與 2026
+活動：公開來源<strong>未見連結</strong>（缺證據，非否證）。</li>
+<li>民間廠商（Volexity、ESET、Proofpoint、CrowdStrike、Recorded
+Future、Citizen Lab）2026 年 Signal 歸因：搜尋無結果。</li>
+</ul>
+<h3 id="36-跨平台verify_0640-項">3.6 跨平台（verify_06：40 項）</h3>
+<ul>
+<li>不是 Signal 獨有：AIVD/MIVD 3/9 聲明同時點名 Signal 與
+WhatsApp。</li>
+<li>GTIG 2026-08-21：UNC7005（GTIG 自己註明＝Storm-2945）於 2026-05、06
+月以假 WhatsApp 頁誘導 device linking；6 月 OAuth 釣魚是
+UNC6293，<strong>兩者不可混為一個行為者</strong>。</li>
+<li>Meta 新聞稿 2026-03-11，宣布 device linking 警示（「6
+月上線」無佐證）。</li>
+<li><strong>伊朗</strong>：2026-01 有 IRGC 關聯的假 WhatsApp Web 頁，掃
+QR 即把攻擊者瀏覽器連結到受害者帳號；Forbes、TechCrunch、The
+National、Dark Reading 報導，但歸因僅來自研究者 Nariman
+Gharib，無政府確認。</li>
+<li>Vortex Werewolf（BI.ZONE，2025-12 至
+2026-01）的受害者是俄羅斯機關；UAC-0094 是 2022-04
+事件，皆與本事件無關。</li>
+</ul>
+<h3 id="37-批評與台灣脈絡verify_08">3.7 批評與台灣脈絡（verify_08）</h3>
+<ul>
+<li>確認：2026-07-07 newtalk 報導 LINE 帳號租給廈門公司案（每帳號人民幣
+1,100 元，對象國民黨立委助理）；TechNews 2026-04-27
+報德國事件，未提台灣；Wichelmann 等 DIMVA 2021 論文（eprint 2021/626）談
+Signal 多裝置註冊。</li>
+<li>台灣數發部、資安處、國安局、國防部、TWCERT 的 Signal 釣魚警示：4
+組繁中查詢零命中，不能證明不存在。</li>
+<li>Registration Lock 對「騙驗證碼／PIN 後重新註冊」的帳號接管有效，對
+QR 連結裝置不受影響（技術上合理，但官方文件被擋，證據為間接）。</li>
+</ul>
+<h2 id="4-對-núkib-建議的評估推測非查核項">4. 對 NÚKIB
+建議的評估（推測，非查核項）</h2>
+<ul>
+<li>使用者端措施（查 Linked Devices、不掃不明 QR、不洩
+PIN）在產品端缺連結後通知與延遲的情況下仍有必要。</li>
+<li>「每日重啟」只針對高曝險者，且報告自己註明不能防止入侵；專家評論查不到。</li>
+</ul>
+<h2 id="5-未通過查核或不可採信">5. 未通過查核或不可採信</h2>
+<table>
+<thead>
+<tr>
+<th>說法</th>
+<th>判定</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TechTimes（2026-10-14）「NÚKIB 確認捷克境內已有事件」「第 5
+個歸因機構」「almost certainly larger」</td>
+<td>不符</td>
+<td>報告無捷克案例；原文為 velmi pravděpodobně（75–85%）；其「Five
+NATO」清單含烏克蘭</td>
+</tr>
+<tr>
+<td>「首次之說在公開紀錄中不成立」</td>
+<td>超出證據</td>
+<td>見 3.4</td>
+</tr>
+<tr>
+<td>波蘭「唯一要求停用 Signal」</td>
+<td>不符</td>
+<td>一手文件（5/13 簽署、5/15
+刊登）明文只說不用於機密／敏感資訊；「停用」是 The Register
+說法；荷蘭、NCSC、CCCS、法國也有類似限制</td>
+</tr>
+<tr>
+<td>NCSC 歸因 FSB</td>
+<td>不符</td>
+<td>NCSC 頁面只寫 Russia-based actors；FSB 只在舊案 Star Blizzard
+語境；「FSB-linked」來自 Infosecurity Magazine</td>
+</tr>
+<tr>
+<td>顧問部落格稱 ANSSI 編號 CERTFR-2026-ALE-003、五機構共簽、含
+Telegram</td>
+<td>不符</td>
+<td>ANSSI PDF 只署 C4，無此編號、無共簽、無 Telegram</td>
+</tr>
+<tr>
+<td>研究檔案稱 FBI 更新是「FBI/CISA」</td>
+<td>修正</td>
+<td>6/26 版由 FBI 單獨發布（ic3.gov）</td>
+</tr>
+<tr>
+<td>UAC-0184 經 WhatsApp、Telegram</td>
+<td>不符</td>
+<td>CERT-UA 為 Signal</td>
+</tr>
+<tr>
+<td>「Macinka 8 月要求用 Signal 聯絡」</td>
+<td>找不到一手</td>
+<td>僅 ČTK 轉述「活動人士說」</td>
+</tr>
+<tr>
+<td>德國「2 月起調查」</td>
+<td>互相矛盾</td>
+<td>AP 說 2 月，Reuters（轉 Ukrainska Pravda）說 4 月中；4/17
+更新的一手頁面與日期未驗證</td>
+</tr>
+<tr>
+<td>「Registration Lock 防不了 linked device 攻擊」</td>
+<td>僅論壇意見</td>
+<td>見 3.7</td>
+</tr>
+</tbody>
+</table>
+<p><strong>仍未驗證</strong>：Spiegel「300
+人受害」、德國受害者名單（二手）、RFJ 原頁、CERT-EU／ENISA／NATO、Meta
+H1 2026 威脅報告內容、Microsoft 2026-07-31 把 Storm-2372／Storm-2945
+歸入 Midnight Blizzard 子集群（二手）、cert.gov.ua 原站公告、Signal
+support 頁、兩語言版 NÚKIB 內文差異。</p>
+<h2 id="6-對已發布譯本的建議">6. 對已發布譯本的建議</h2>
+<ul>
+<li>頁面標示「2026 年 9 月 30
+日」是英文版日期，沒有錯；建議補一行：另有捷克語原版（Č.j.
+21670/2026，2026-08-11；新聞頁 2026-09-04），兩版內文未比對。</li>
+</ul>
+
+<p class="nav"><a href="./">← 回到 NÚKIB 報告繁中譯本</a></p>
+</main>
+</body>
+</html>
